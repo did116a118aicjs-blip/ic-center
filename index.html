@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IC CENTER</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0f172a; color: #e2e8f0;
+         font-family: system-ui, "Segoe UI", Tahoma, sans-serif; text-align: center; padding: 16px; box-sizing: border-box; }
+  a { color: #22d3ee; }
+  .muted { color: #94a3b8; font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>IC CENTER ศูนย์งานซ่อมแผงวงจรอิเล็กทรอนิกส์และชิป IC</h1>
+  <p id="msg">กำลังเชื่อมต่อระบบ...</p>
+  <p class="muted" id="hint"></p>
+</main>
+<script>
+  // The server's public address changes when it restarts; url.json always holds the current one.
+  // Fetch it uncached (GitHub Pages caches files for ~10 minutes) and go there.
+  fetch('url.json?t=' + Date.now(), { cache: 'no-store' })
+    .then((r) => r.json())
+    .then(({ url }) => {
+      if (!/^https:\/\/[a-z0-9-]+\.trycloudflare\.com\/?$/.test(url)) throw new Error('bad url');
+      document.getElementById('msg').innerHTML = 'กำลังพาไปที่ระบบ... <a href="' + url + '">กดที่นี่ถ้าไม่ไปเอง</a>';
+      location.replace(url + location.hash);
+    })
+    .catch(() => {
+      document.getElementById('msg').textContent = 'ตอนนี้ระบบยังไม่พร้อม (เครื่องเซิร์ฟเวอร์อาจปิดอยู่หรือกำลังเริ่มใหม่)';
+      document.getElementById('hint').textContent = 'กรุณารอสักครู่แล้วโหลดหน้านี้ใหม่';
+    });
+</script>
+</body>
+</html>
